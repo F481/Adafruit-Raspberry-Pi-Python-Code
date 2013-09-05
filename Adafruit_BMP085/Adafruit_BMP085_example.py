@@ -21,6 +21,10 @@ temp = bmp.readTemperature()
 # Read the current barometric pressure level
 pressure = bmp.readPressure()
 
+# get the real barometric pressure on sea level
+# pass the absolute altitude of the sensors position as parameter
+realPressure = bmp.getRealPressure(720)
+
 # To calculate altitude based on an estimated mean sea level pressure
 # (1013.25 hPa) call the function as follows, but this won't be very accurate
 altitude = bmp.readAltitude()
@@ -32,4 +36,5 @@ altitude = bmp.readAltitude()
 
 print "Temperature: %.2f C" % temp
 print "Pressure:    %.2f hPa" % (pressure / 100.0)
+print "Real pressure: %.2f hPa" % (realPressure / 100)
 print "Altitude:    %.2f" % altitude

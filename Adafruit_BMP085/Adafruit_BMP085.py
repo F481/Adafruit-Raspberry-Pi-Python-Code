@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import time
+from decimal import Decimal
 from Adafruit_I2C import Adafruit_I2C
 
 # ===========================================================================
@@ -257,3 +258,11 @@ class BMP085 :
     return altitude
 
     return 0
+
+  # With the measured pressure and the absolute altitude the pressure at sea level can be calculated
+  # see BMP085 datasheet: 3.7 Calculating pressure at sea level
+  def getRealPressure(self, altitude):
+    pressure = self.readPressure()
+    denominator = pow(Decimal(1) - (Decimal(altitude) / Decimal(44330)), Decimal(5.255))
+
+    return pressure / denominator
